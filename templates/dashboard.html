@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Smart Retail Intelligence Dashboard</title>
+
+    <style>
+
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f7fc;
+            margin:0;
+            padding:30px;
+        }
+
+        h1{
+            text-align:center;
+            color:#2c3e50;
+            margin-bottom:30px;
+        }
+
+        .container{
+            display:grid;
+            grid-template-columns: repeat(2,1fr);
+            gap:20px;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            border-radius:15px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom:20px;
+        }
+
+        .card h2{
+            color:#333;
+        }
+
+        .card h3{
+            color:#007bff;
+        }
+
+        select{
+            padding:10px;
+            margin:10px 0;
+        }
+
+        button{
+            padding:10px 15px;
+            border:none;
+            background:#007bff;
+            color:white;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        button:hover{
+            background:#0056b3;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h1>📊 Smart Retail Intelligence Dashboard</h1>
+
+<div class="container">
+
+    <div class="card">
+        <h2>Total Revenue</h2>
+        <h3>₹ {{ revenue }}</h3>
+    </div>
+
+    <div class="card">
+        <h2>Total Units Sold</h2>
+        <h3>{{ units }}</h3>
+    </div>
+
+    <div class="card">
+        <h2>Average Price</h2>
+        <h3>₹ {{ avg_price }}</h3>
+    </div>
+
+    <div class="card">
+        <h2>Competitor Price</h2>
+        <h3>₹ {{ avg_comp_price }}</h3>
+    </div>
+
+</div>
+
+<div class="card">
+    <h2>Business Recommendation</h2>
+    <h3>{{ recommendation }}</h3>
+</div>
+
+<div class="card">
+    <h2>🏆 Top Selling Category</h2>
+    <h3>{{ top_category }}</h3>
+
+    <p>
+        Total Units Sold:
+        <strong>{{ top_category_sales }}</strong>
+    </p>
+</div>
+
+<div class="card">
+    <h2>🤖 AI Offer Recommendation</h2>
+    <h3>{{ offer_advice }}</h3>
+</div>
+
+<div class="card">
+    <h2>🎯 Best Time To Run Offers</h2>
+
+    <h3>{{ best_season }}</h3>
+
+    <p>
+        Average Units Sold:
+        <strong>{{ best_season_sales }}</strong>
+    </p>
+
+    <p>
+        Recommended season for discounts and sales.
+    </p>
+</div>
+
+<div class="card">
+
+    <h2>🔍 Category Recommendation Engine</h2>
+
+    <form method="POST">
+
+        <select name="category">
+
+            {% for category in categories %}
+
+            <option value="{{ category }}">
+                {{ category }}
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+        <button type="submit">
+            Analyze Category
+        </button>
+
+    </form>
+
+    {% if selected_category %}
+
+    <hr>
+
+    <h3>{{ selected_category }}</h3>
+
+    <p>
+        Demand Forecast:
+        <strong>{{ category_demand }}</strong>
+    </p>
+
+    <p>
+        Inventory Level:
+        <strong>{{ category_inventory }}</strong>
+    </p>
+
+    <p>
+        Average Price:
+        <strong>₹ {{ category_price }}</strong>
+    </p>
+
+    <p>
+        Competitor Price:
+        <strong>₹ {{ category_competitor }}</strong>
+    </p>
+
+    <h3>{{ category_advice }}</h3>
+
+    {% endif %}
+
+</div>
+
+<div class="card">
+
+    <h2>🚨 Inventory Alerts</h2>
+
+    {% if inventory_alerts %}
+
+        <ul>
+
+        {% for alert in inventory_alerts %}
+
+            <li>{{ alert }}</li>
+
+        {% endfor %}
+
+        </ul>
+
+    {% else %}
+
+        <p>All Categories Have Sufficient Inventory</p>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>
